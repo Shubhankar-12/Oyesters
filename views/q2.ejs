@@ -1,0 +1,49 @@
+<%- include ('partials/header') -%>
+<!-- navbar -->
+<%- include ('partials/navbar') -%>
+
+<div class="container">
+  <h1>Task - II</h1>
+  <div class="card border-secondary" style="max-width: 24rem">
+    <div class="card-header">Problem - II</div>
+    <div class="card-body text-center">
+      <p>Enter time in this format HH:MM:SSAM (AM/PM) <br />i.e 07:05:45PM</p>
+      <p id="error" style="color: red">Enter in correct format</p>
+      <form class="row g-2">
+        <div class="col-auto">
+          <input
+            type="text"
+            class="form-control"
+            id="time"
+            placeholder="Enter time"
+          />
+        </div>
+        <div class="col-auto">
+          <button
+            type="submit"
+            class="btn btn-primary mb-3"
+            onclick="return onClick2()"
+          >
+            Submit
+          </button>
+        </div>
+      </form>
+      <div class="row g-2">
+        <h5 class="col-auto">Solution :</h5>
+        <p class="col-auto" id="result"></p>
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+  #error {
+    display: none;
+  }
+  .container {
+    position: absolute;
+    top: 33%;
+    left: 36%;
+  }
+</style>
+<script src="/script/sol.js"></script>
+<%- include ('partials/footer') -%>

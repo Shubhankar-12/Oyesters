@@ -1,0 +1,89 @@
+<%- include("partials/header")-%>
+<!-- Navbar -->
+<%- include("partials/navbar")-%>
+
+<!-- Todo form -->
+<div class="todo-container">
+  <form action="/newtask" method="post">
+    <div class="input-group mb-3">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="New Task"
+        name="newtask"
+        aria-describedby="button-addon2"
+      />
+      <button
+        class="btn btn-success"
+        type="submit"
+        id="button-addon2"
+        href="/newtask"
+      >
+        Add task
+      </button>
+    </div>
+  </form>
+  <!-- todos -->
+
+  <table class="table table-hover">
+    <thead class="table-success">
+      <tr>
+        <th scope="col">Task to be completed</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% for (var i =0; i < todo.length; i++ ) { %>
+      <tr>
+        <label type="hidden" for="" value="todo[i].task"></label>
+        <th scope="row" colspan="2"><%= todo[i].task %></th>
+        <td>
+          <div class="dropdown">
+            <button
+              type="button"
+              class="btn btn-success dropdown-toggle"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+              data-bs-auto-close="outside"
+            >
+              Update
+            </button>
+            <form
+              class="dropdown-menu custom-dropdown"
+              action="/todo/update/<%= todo[i]._id %>"
+              method="post"
+            >
+              <div class="mb-3">
+                <label for="exampleDropdownFormEmail2" class="form-label"
+                  >New Title</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="exampleDropdownFormEmail2"
+                  placeholder="Title goes here"
+                  name="updatedtitle"
+                />
+              </div>
+
+              <button type="submit" class="btn btn-primary">Update</button>
+            </form>
+          </div>
+        </td>
+        <td>
+          <a href="/todo/delete/<%= todo[i]._id %>">
+            <button class="btn btn-danger">Delete</button></a
+          >
+        </td>
+      </tr>
+      <% } %>
+    </tbody>
+  </table>
+  <!-- todos -->
+</div>
+<!-- Todo form -->
+
+<!-- Navbar -->
+<%- include("partials/footer")-%>

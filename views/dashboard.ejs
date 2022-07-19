@@ -1,0 +1,36 @@
+<%- include("partials/header")-%>
+<!-- Navbar -->
+<%- include("partials/navbar")-%>
+
+<!-- Navbar -->
+
+<!-- Heros section -->
+<div class="px-4 py-5 my-5 text-center">
+  <img
+    class="d-block mx-auto mb-4"
+    src="img/avatar.svg"
+    alt=""
+    width="72"
+    height="57"
+  />
+  <h1 class="display-5 fw-bold">Welcome <%=user.fullname%></h1>
+  <div class="col-lg-6 mx-auto">
+    <p class="lead mb-4">
+      Welcome to our page. here you can make your own todo list.
+    </p>
+    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+      <a type="button" class="btn btn-success btn-lg px-4 gap-3" href="/todo">
+        Todos
+      </a>
+      <a
+        type="button"
+        class="btn btn-outline-secondary btn-lg px-4"
+        href="/logout"
+      >
+        Log Out
+      </a>
+    </div>
+  </div>
+</div>
+<!-- Heros section -->
+<%- include("partials/footer")-%>

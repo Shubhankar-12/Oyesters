@@ -1,0 +1,20 @@
+<%- include("partials/header")-%>
+<img class="wave" src="img/wave.png" />
+<div class="container">
+  <div class="img">
+    <img src="img/bg.svg" />
+  </div>
+  <div class="login-content">
+    <form action="/" method="post">
+      <img src="img/avatar.svg" />
+      <h2 class="title">Welcome</h2>
+      <div class="register-div">
+        <input type="text" name="username" id="" placeholder="Email" />
+        <input type="password" name="password" id="" placeholder="Password" />
+      </div>
+      <a href="/register" class="register-link">New User? Register</a>
+      <input type="submit" class="mybtn" value="Login" />
+    </form>
+  </div>
+</div>
+<%- include("partials/footer")-%>
