@@ -23,7 +23,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-mongoose.connect(process.env.MONGO_URI);
+mongoose.connect("mongodb+srv://Shubh:lptcI7Ix1Dx7B9OI@cluster0.90qsz.mongodb.net/myuserDB");
 
 const todoSchema = new mongoose.Schema({
     task: String
