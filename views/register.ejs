@@ -1,4 +1,7 @@
 <%- include("partials/header")-%>
+<!-- messages -->
+<div class="message-container"><%- include('partials/message') %></div>
+<!-- messages -->
 <img class="wave" src="img/wave.png" />
 <div class="container">
   <div class="img">
@@ -8,15 +11,35 @@
     <form action="/register" method="post">
       <img src="img/avatar.svg" />
       <div class="register-div">
-        <input type="text" name="fullname" id="" placeholder="Full name" />
-        <input type="email" name="username" id="" placeholder="Email" />
-        <input type="password" name="password" id="" placeholder="Password" />
+        <input
+          type="text"
+          name="fullname"
+          id=""
+          placeholder="Full name"
+          value="<%= typeof name != 'undefined' ? name : '' %>"
+        />
+        <input
+          type="email"
+          name="username"
+          id=""
+          placeholder="Email"
+          value="<%= typeof email != 'undefined' ? email : '' %>"
+        />
+        <input
+          type="password"
+          name="password"
+          id=""
+          placeholder="Password"
+          value="<%= typeof password != 'undefined' ? password : '' %>"
+        />
         <input
           type="password"
           name="password2"
           id=""
           placeholder="Confirm Password"
+          value="<%= typeof password2 != 'undefined' ? password2 : '' %>"
         />
+        <a href="/" class="register-link">Already have an account? Login</a>
         <button type="submit" class="mybtn">Register</button>
       </div>
     </form>

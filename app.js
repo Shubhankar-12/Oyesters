@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 const session = require('express-session');
 const passport = require('passport');
 const passportLocacalMongoose = require('passport-local-mongoose');
-const e = require('connect-flash');
+const flash = require('connect-flash');
 const PORT = process.env.PORT || 3000;
 const app = express();
 
@@ -65,17 +65,38 @@ passport.deserializeUser(function (user, cb) {
     });
 });
 
+
+app.use(flash());
+
+//Global Vars
+app.use((req, res, next) => {
+    res.locals.success_msg = req.flash('success_msg');
+    res.locals.error_msg = req.flash('error_msg');
+    res.locals.error = req.flash('error');
+    next();
+})
+
 app.get('/', (req, res) => {
     res.render('login.ejs');
 });
 app.post('/', (req, res) => {
+    let errors = [];
     const user = new User({
         username: req.body.username,
         password: req.body.password
     });
+    if (user.username === '' || user.password === '') {
+
+        errors.push({ msg: "Invalid Credintials" })
+        res.render('login.ejs', { errors })
+    }
+
     req.logIn(user, (err) => {
-        if (err)
-            console.log(err);
+
+        if (err) {
+            errors.push({ msg: "Cannot authorize" })
+            res.render('login.ejs', { errors });
+        }
         else {
             passport.authenticate("local")(req, res, () => {
                 res.redirect('/dashboard');
@@ -84,13 +105,38 @@ app.post('/', (req, res) => {
     });
 })
 app.get('/register', (req, res) => {
+
     res.render('register.ejs');
 });
 
 app.post('/register', (req, res) => {
-    const newUser = req.body;
-    if (newUser.password === newUser.password2) {
-        User.register({ username: newUser.username, fullname: newUser.fullname }, newUser.password, (err, user) => {
+    let errors = [];
+    // const { email, name, password, password2 } = req.body;
+    const name = req.body.fullname;
+    const email = req.body.username;
+    const password = req.body.password;
+    const password2 = req.body.password2;
+    if (!name || !email || !password || !password2) {
+        errors.push({ msg: 'Please fill in all fields' });
+    }
+
+    //Check passwords match
+    if (password !== password2) {
+        errors.push({ msg: 'Passwords do not match' })
+    }
+
+    //Check pass length
+    if (password.length < 6) {
+        errors.push({ msg: 'Password should be at least 6 characters' });
+    }
+
+    if (errors.length > 0) {
+        res.render('register.ejs', {
+            errors, name, email, password, password2
+        })
+    }
+    else {
+        User.register({ username: email, fullname: name }, password, (err, user) => {
             if (err) {
                 console.log(err);
                 res.redirect('/register');
